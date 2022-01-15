@@ -1,0 +1,40 @@
+
+<mat-card style="text-align:center">
+  <mat-card-title>
+    What time should I go for a run?
+  </mat-card-title>
+
+  <mat-progress-spinner
+  mode="indeterminate"
+  diameter="300"
+  style="margin:50px auto;"
+  *ngIf="loading"
+  ></mat-progress-spinner>
+
+  <img mat-card-image
+  *ngIf="!loading"
+  src="../../../assets/runner.png"
+  class="cardImg"
+  >
+
+  <mat-card-content *ngIf="!loading">
+    <app-key></app-key>
+    <br>
+    <button mat-raised-button
+    [routerLink]="['/saved']"
+    style="display: inline-block;"
+    >
+    View Saved Hours
+  </button>
+      <div *ngFor="let data of weather$ | async | slice:0: hoursToMidnight; index as i">
+        <section
+        [ngClass]="giveColor(data.weather[0].main, data.dt)"
+        [routerLink]="['/'+i]"
+        >
+          <p>{{data.dt * 1000 | date:'shortTime'}}</p>
+          <p style="float: right;"><i>More Info...</i></p>
+        </section>
+      </div>
+  </mat-card-content>
+
+</mat-card>

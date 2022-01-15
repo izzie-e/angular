@@ -1,0 +1,29 @@
+
+<mat-card>
+  <mat-card-title>Saved Hours</mat-card-title>
+  <mat-card-content>
+    <section *ngFor="let hour of savedHours$ | async; index as i">
+      <div (click)="this.toggleDetails(i)" class="hour">
+      <div>
+        <p><b>{{hour.dt * 1000 | date:'shortTime'}} {{showDetails[i]? "-": "+"}}</b></p>
+      </div>
+      <div *ngIf="showDetails[i]">
+        <p>Weather : {{ hour.weather[0].description}}</p>
+        <p>Temperature : {{ hour.temp}}C</p>
+        <p>Humidity : {{ hour.humidity}}</p>
+        <p>Wind Speed : {{ hour.wind_speed}}</p>
+        <p>Ultraviolet Index : {{ hour.uvi}}</p>
+        <button mat-raised-button (click)="deleteHour(hour)">Delete Hour</button>
+      </div>
+    </div>
+      <br>
+
+    </section>
+    <section class="hour">
+      <button mat-raised-button [routerLink]="['/']">To Home</button>
+      <button mat-raised-button (click)="deleteAll()">Delete All</button>
+    </section>
+  </mat-card-content>
+</mat-card>
+
+
